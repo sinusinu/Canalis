@@ -1,0 +1,2 @@
+This folder contains the native portion of `Canalis`, which is dumb wrapper of `dr_wav`, `dr_mp3`, and `stb_vorbis`.
+Look into the `build` directory for the instruction about building `canalis-native.dll` file.

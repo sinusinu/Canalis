@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <PackageId>Canalis</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Woohyun Shin</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="native\**" />
+    <Compile Remove="native\**" />
+    <EmbeddedResource Remove="native\**" />
+    <None Remove="native\**" />
+    
+    <Compile Remove="CanalisExample.cs" />
+  </ItemGroup>
+</Project>
