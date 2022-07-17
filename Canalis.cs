@@ -69,10 +69,21 @@ public class Canalis : IDisposable {
     [DllImport(dllName, EntryPoint = "canalis_read")]
     private static unsafe extern void Read(IntPtr instance, void* buf, int sizeInBytes, out int readBytes);
 
+    [DllImport(dllName, EntryPoint = "canalis_read")]
+    private static unsafe extern void Read(IntPtr instance, void* buf, int sizeInBytes, IntPtr nul);
+
     private static void Read(IntPtr instance, short[] buf, out int readBytes) {
         unsafe {
             fixed (void* pbuf = buf) {
                 Read(instance, pbuf, buf.Length * 2, out readBytes);
+            }
+        }
+    }
+
+    private static void Read(IntPtr instance, short[] buf) {
+        unsafe {
+            fixed (void* pbuf = buf) {
+                Read(instance, pbuf, buf.Length * 2, IntPtr.Zero);
             }
         }
     }
@@ -85,10 +96,26 @@ public class Canalis : IDisposable {
         }
     }
 
+    private static void Read(IntPtr instance, int[] buf) {
+        unsafe {
+            fixed (void* pbuf = buf) {
+                Read(instance, pbuf, buf.Length * 4, IntPtr.Zero);
+            }
+        }
+    }
+
     private static void Read(IntPtr instance, float[] buf, out int readBytes) {
         unsafe {
             fixed (void* pbuf = buf) {
                 Read(instance, pbuf, buf.Length * 4, out readBytes);
+            }
+        }
+    }
+
+    private static void Read(IntPtr instance, float[] buf) {
+        unsafe {
+            fixed (void* pbuf = buf) {
+                Read(instance, pbuf, buf.Length * 4, IntPtr.Zero);
             }
         }
     }
@@ -165,6 +192,14 @@ public class Canalis : IDisposable {
         if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to set position: " + GetLastError(instance));
     }
 
+    public void Read(short[] buf) {
+        SampleFormat sampleFormat = GetSampleFormat(instance);
+        if (sampleFormat != SampleFormat.S16) throw new ArgumentException("Sample format mismatch, buf should be short[]");
+
+        Read(instance, buf);
+        if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to read: " + GetLastError(instance));
+    }
+
     public void Read(short[] buf, out int readBytes) {
         SampleFormat sampleFormat = GetSampleFormat(instance);
         if (sampleFormat != SampleFormat.S16) throw new ArgumentException("Sample format mismatch, buf should be short[]");
@@ -173,11 +208,27 @@ public class Canalis : IDisposable {
         if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to read: " + GetLastError(instance));
     }
 
+    public void Read(int[] buf) {
+        SampleFormat sampleFormat = GetSampleFormat(instance);
+        if (sampleFormat != SampleFormat.S32) throw new ArgumentException("Sample format mismatch, buf should be int[]");
+
+        Read(instance, buf);
+        if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to read: " + GetLastError(instance));
+    }
+
     public void Read(int[] buf, out int readBytes) {
         SampleFormat sampleFormat = GetSampleFormat(instance);
         if (sampleFormat != SampleFormat.S32) throw new ArgumentException("Sample format mismatch, buf should be int[]");
 
         Read(instance, buf, out readBytes);
+        if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to read: " + GetLastError(instance));
+    }
+
+    public void Read(float[] buf) {
+        SampleFormat sampleFormat = GetSampleFormat(instance);
+        if (sampleFormat != SampleFormat.F32) throw new ArgumentException("Sample format mismatch, buf should be float[]");
+
+        Read(instance, buf);
         if (GetLastError(instance) != Error.Success) throw new InvalidOperationException("Failed to read: " + GetLastError(instance));
     }
 
