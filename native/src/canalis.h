@@ -78,6 +78,7 @@ canalis_export void canalis_load_wav(CanalisInstance* instance, const char* path
 canalis_export void canalis_load_mp3(CanalisInstance* instance, const char* path, canalis_sample_format format);
 canalis_export void canalis_load_vorbis(CanalisInstance* instance, const char* path, canalis_sample_format format);
 canalis_export canalis_error canalis_get_last_error(CanalisInstance* instance);
+canalis_export canalis_state canalis_get_state(CanalisInstance* instance);
 canalis_export int32_t canalis_get_sample_rate(CanalisInstance* instance);
 canalis_export canalis_sample_format canalis_get_sample_format(CanalisInstance* instance);
 canalis_export int32_t canalis_get_channels(CanalisInstance* instance);
@@ -255,6 +256,10 @@ canalis_export void canalis_load_vorbis(CanalisInstance* instance, const char* p
 
 canalis_export canalis_error canalis_get_last_error(CanalisInstance* instance) {
     return instance->error;
+}
+
+canalis_export canalis_state canalis_get_state(CanalisInstance* instance) {
+    return instance->state;
 }
 
 canalis_export int32_t canalis_get_sample_rate(CanalisInstance* instance) {
