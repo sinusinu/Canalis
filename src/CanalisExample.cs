@@ -1,6 +1,6 @@
 using System;
 
-namespace CanalisLib;
+namespace Canalis;
 
 class CanalisExample {
     /*
@@ -41,7 +41,7 @@ class CanalisExample {
     Read 32 bytes: 56 142 62 130 64 111 65 86 64 59 61 26 57 -12 52 -52
     */
     static void Main(string[] args) {
-        Canalis canalis = new Canalis("thing.wav", Canalis.SampleFormat.S16);
+        CanalisInstance canalis = new CanalisInstance("thing.wav", CanalisInterop.SampleFormat.S16);
 
         Console.WriteLine(
             "{0} {1} {2} {3}",
