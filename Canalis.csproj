@@ -16,6 +16,6 @@
     <EmbeddedResource Remove="native\**" />
     <None Remove="native\**" />
     
-    <Compile Remove="CanalisExample.cs" />
+    <Compile Remove="src\CanalisExample.cs" />
   </ItemGroup>
 </Project>
